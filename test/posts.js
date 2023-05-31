@@ -6,7 +6,7 @@ import { createRandomUser } from '../helpers/User_helper ';
 // Configuration
 dotenv.config();
 
-describe.only('/posts route', () => {
+describe('/posts route', () => {
     /* Setup */
     const request = supertest('https://gorest.co.in/public/v2/');
     const token = process.env.USER_TOKEN;
