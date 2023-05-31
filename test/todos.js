@@ -7,7 +7,7 @@ dotenv.config();
 //Request
 const request = supertest('https://gorest.co.in/public/v2/');
 const token = process.env.USER_TOKEN;
-describe.only(' /todos route', () => {
+describe(' /todos route', () => {
     let userId = null;
     before(async () => {
         const res = await request.get('posts').set('Authorization', `Bearer ${token}`);
