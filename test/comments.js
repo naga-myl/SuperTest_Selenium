@@ -15,6 +15,7 @@ describe(' /comments route', () => {
         const res = await request.get('comments');
         console.log(res.body);
         postid=res.body[0].post_id;
+    // Assertions
      expect(res).to.not.be.empty;
     });
     it('POST /comments', async function() {
@@ -27,6 +28,7 @@ describe(' /comments route', () => {
         // Get back the id of the post we just created to use later
         postid = res.body.id;
         console.log(res.body);
+     // Assertions   
         expect(res.body).to.include(data);
         expect(res.body).to.have.property('name');
         expect(res.body).to.have.property('email');
@@ -36,6 +38,7 @@ describe(' /comments route', () => {
     it('GET /comments/:id', async () => {
         const res = await request.get(`comments/${postid}?access-token=${token}`);
         //console.log(res.body.data);
+        // Assertions
         expect(res.body.id).to.eq(postid);
     });
     it('PUT /comments/:id', async () => {
@@ -46,6 +49,7 @@ describe(' /comments route', () => {
             .set('Authorization', `Bearer ${token}`)
             .send(data);
         //console.log(res.body);
+        // Assertions 
         expect(res.body.name).to.equal(data.name);
         expect(res.body).to.include(data);
     });
@@ -64,6 +68,7 @@ describe(' /comments route', () => {
         const res = await request.delete(`users/${postid}`)
             .set('Authorization', `Bearer ${token}`);
         //console.log(res.body.message);
+        // Assertions
         expect(res.body.message).to.equal('Resource not found');
     });
 });
