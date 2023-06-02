@@ -80,4 +80,44 @@ describe('/users', () => {
         //console.log(res.body.message);
         expect(res.body.message).to.equal('Resource not found');
     });
-});
+    it('Patch /users/:id', async () => {
+       
+        const data = {
+            name: 'Harit',
+            status: 'active'
+        };
+        const res = await request.patch(`users/2406369`)
+
+            .set('Authorization', `Bearer ${token}`)
+            .send(data);
+        expect(res.body.name).to.equal(data.name);
+        expect(res.body).to.include(data);
+            
+            
+           // console.log(res.body);
+           // console.log(res.status);
+            expect(res.statusCode).to.eq(200);
+            expect(res.body).to.not.empty;
+         });
+         it('Patch /users/:id | Negative', async () => {
+       
+            const data = {
+                name: 'Harit',
+                status: 'active'
+            };
+            const res = await request.patch(`users/${userId}`)
+    
+                .set('Authorization', `Bearer ${token}`)
+                .send(data);
+           
+                
+                
+                //console.log(res.body);
+                //console.log(res.status);
+                expect(res.statusCode).to.eq(404);
+                expect(res.body).to.not.empty;
+                expect(res.body.message).to.eq('Resource not found');
+               
+             });
+    });
+
