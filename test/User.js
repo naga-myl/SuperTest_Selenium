@@ -6,7 +6,7 @@ import { createRandomUser } from "../helpers/User_helper ";
 dotenv.config();
 // Request - create a request object
 const request = supertest('https://gorest.co.in/public/v2/');
- 
+
 
 const token = process.env.USER_TOKEN;
 // Mocha test cases
@@ -15,17 +15,17 @@ describe('/users', () => {
     // Get list of users
     it('GET /users', async () => {
         request.get(`users?access-token=${token}`).then((res) => {
-        expect(res.body).to.not.be.empty;
+            expect(res.body).to.not.be.empty;
         });
     });
     // Get user by Id
     it('GET /users/:id', async () => {
         request.get(`users/2329074?access-token=${token}`).then((res) => {
-        expect(res.body.id).to.not.be.empty;
+            expect(res.body.id).to.not.be.empty;
         });
     });
 
-    it('POST /users', async() => {
+    it('POST /users', async () => {
         let data = createRandomUser();
         const res = await request
             .post('users')
@@ -42,23 +42,23 @@ describe('/users', () => {
             .post('users')
             .set('Authorization', `Bearer ${token}`)
             .send(data);
-            expect(res.statusCode).to.eq(422);
+        expect(res.statusCode).to.eq(422);
     });
-    
+
     it('GET /users/:id | User we just created', async () => {
         const res = await request.get(`users/${userId}?access-token=${token}`);
         expect(res.body.id).to.eq(userId);
     });
-    
+
     it('PUT /users/:id', async () => {
         const data = {
             name: 'Test user updated'
         };
         const res = await request.put(`users/${userId}`)
-        
+
             .set('Authorization', `Bearer ${token}`)
             .send(data);
-        
+
         //console.log(res.body);
         expect(res.body.name).to.equal(data.name);
         expect(res.body).to.include(data);
@@ -81,7 +81,7 @@ describe('/users', () => {
         expect(res.body.message).to.equal('Resource not found');
     });
     it('Patch /users/:id', async () => {
-       
+
         const data = {
             name: 'Harit',
             status: 'active'
@@ -92,32 +92,32 @@ describe('/users', () => {
             .send(data);
         expect(res.body.name).to.equal(data.name);
         expect(res.body).to.include(data);
-            
-            
-           // console.log(res.body);
-           // console.log(res.status);
-            expect(res.statusCode).to.eq(200);
-            expect(res.body).to.not.empty;
-         });
-         it('Patch /users/:id | Negative', async () => {
-       
-            const data = {
-                name: 'Harit',
-                status: 'active'
-            };
-            const res = await request.patch(`users/${userId}`)
-    
-                .set('Authorization', `Bearer ${token}`)
-                .send(data);
-           
-                
-                
-                //console.log(res.body);
-                //console.log(res.status);
-                expect(res.statusCode).to.eq(404);
-                expect(res.body).to.not.empty;
-                expect(res.body.message).to.eq('Resource not found');
-               
-             });
+
+
+        // console.log(res.body);
+        // console.log(res.status);
+        expect(res.statusCode).to.eq(200);
+        expect(res.body).to.not.empty;
     });
+    it('Patch /users/:id | Negative', async () => {
+
+        const data = {
+            name: 'Harit',
+            status: 'active'
+        };
+        const res = await request.patch(`users/${userId}`)
+
+            .set('Authorization', `Bearer ${token}`)
+            .send(data);
+
+
+
+        //console.log(res.body);
+        //console.log(res.status);
+        expect(res.statusCode).to.eq(404);
+        expect(res.body).to.not.empty;
+        expect(res.body.message).to.eq('Resource not found');
+
+    });
+});
 
