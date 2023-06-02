@@ -23,6 +23,7 @@ describe('/posts route', () => {
     it('GET /posts', async () => {
         const res = await request.get('posts')
         expect(res.body).to.not.be.empty;
+        console.log(res.body);
         //userId = res.body.data[0].user_id; // We can't be sure this user works to work with
     });
 
@@ -60,6 +61,15 @@ describe('/posts route', () => {
         const res = await request.delete(`posts/${postId}`)
             .set('Authorization', `Bearer ${token}`);
              expect(res.body).to.be.empty;
+    });
+    it('GET /posts/:id | Negative', async () => {
+        const res = await request.get(`posts/${postId}`);
+            expect(res.body.message).to.eq('Resource not found');
+    });
+
+    it('DELETE /posts/:id | Negative', async () => {
+        const res = await request.delete(`posts/${postId}`)
+        expect(res.body.message).to.equal('Resource not found');
     });
     
     /* Cleanup */
