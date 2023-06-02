@@ -94,7 +94,7 @@ describe('/users', () => {
         expect(res.body).to.include(data);
 
 
-        // console.log(res.body);
+         console.log(res.body);
         // console.log(res.status);
         expect(res.statusCode).to.eq(200);
         expect(res.body).to.not.empty;
