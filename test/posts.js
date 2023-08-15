@@ -9,7 +9,7 @@ dotenv.config();
 describe('/posts route', () => {
     /* Setup */
     const request = supertest('https://gorest.co.in/public/v2/');
-    const token = process.env.USER_TOKEN;
+    const token = process.env.SUPERTEST_USER_TOKEN;
     let userId = null;
     let postId = null;
 
@@ -23,7 +23,7 @@ describe('/posts route', () => {
     it('GET /posts', async () => {
         const res = await request.get('posts')
         expect(res.body).to.not.be.empty;
-        console.log(res.body);
+       // console.log(res.body);
         //userId = res.body.data[0].user_id; // We can't be sure this user works to work with
     });
 

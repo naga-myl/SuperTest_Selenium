@@ -8,7 +8,7 @@ dotenv.config();
 const request = supertest('https://gorest.co.in/public/v2/');
 
 
-const token = process.env.USER_TOKEN;
+const token = process.env.SUPERTEST_USER_TOKEN;
 // Mocha test cases
 describe('/users', () => {
     let userId = null;
@@ -66,7 +66,7 @@ describe('/users', () => {
     it('DELETE /users/:id | User we just created', async () => {
         const res = await request.delete(`users/${userId}`)
             .set('Authorization', `Bearer ${token}`);
-        console.log(res.body);
+       // console.log(res.body);
         expect(res.body).to.be.empty;
     });
     it('GET /users/:id | Negative', async () => {
@@ -94,7 +94,7 @@ describe('/users', () => {
         expect(res.body).to.include(data);
 
 
-         console.log(res.body);
+         //console.log(res.body);
         // console.log(res.status);
         expect(res.statusCode).to.eq(200);
         expect(res.body).to.not.empty;

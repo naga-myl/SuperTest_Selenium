@@ -6,7 +6,7 @@ import {createRandomtodos} from '../helpers/todos_helper';
 dotenv.config();
 //Request
 const request = supertest('https://gorest.co.in/public/v2/');
-const token = process.env.USER_TOKEN;
+const token = process.env.SUPERTEST_USER_TOKEN;
 describe(' /todos route', () => {
     let userId = null;
     before(async () => {
@@ -15,7 +15,7 @@ describe(' /todos route', () => {
     });
     it(' GET /todos', async () => {
         const res = await request.get('todos');
-        console.log(res.body);
+      //  console.log(res.body);
         expect(res.body).to.not.be.empty;
     });
 
